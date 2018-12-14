@@ -6,11 +6,21 @@ import UserSelector from "./user-selector";
 const DATABASE_NAME = "xoxialDB";
 const DATABASE_DEFAULT = {
   posts: [],
-  users: ["jfbaraky", "igorknop", "thigouvea"],
-  currentUser: -1
+  users: [
+    {
+      username: "jfbaraky",
+      img: "https://avatars1.githubusercontent.com/u/20716607?s=460&v=4"
+    },
+    { username: "igorknop" },
+    {
+      username: "tiagogouvea",
+      img: "https://avatars2.githubusercontent.com/u/2242549?s=400&v=4"
+    }
+  ],
+  currentUser: 0
 };
 
-class Timeline extends Component {
+export default class Timeline extends Component {
   constructor() {
     super();
     this.state = DATABASE_DEFAULT;
@@ -44,11 +54,14 @@ class Timeline extends Component {
 
   saveInStorage() {
     const xoxialDB = JSON.stringify(this.state);
-    localStorage.setItem("xoxialDB", xoxialDB);
+    localStorage.setItem(DATABASE_NAME, xoxialDB);
   }
 
   onNavigate(post) {
     this.props.history.push("/post/" + post.time);
+  }
+  onProfileNavigate(post) {
+    this.props.history.push("/profile/" + post.author);
   }
 
   render() {
@@ -60,7 +73,10 @@ class Timeline extends Component {
           current={this.state.currentUser}
           onChangeUser={this.changeUser.bind(this)}
         />
-        <PostCreator onCreate={this.insertPost.bind(this)} getUser={()=>this.state.users[this.state.currentUser]}/>
+        <PostCreator
+          onCreate={this.insertPost.bind(this)}
+          getUser={() => this.state.users[this.state.currentUser]}
+        />
         <button onClick={() => this.props.history.push("/sobre")}>
           Ver sobre
         </button>
@@ -68,6 +84,7 @@ class Timeline extends Component {
           return (
             <Post
               onNavigate={() => this.onNavigate(post)}
+              onProfileNavigate={() => this.onProfileNavigate(post)}
               key={post.time}
               post={post}
             />
@@ -78,4 +95,4 @@ class Timeline extends Component {
   }
 }
 
-export default Timeline;
+export { DATABASE_NAME };

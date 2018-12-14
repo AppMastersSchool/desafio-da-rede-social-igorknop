@@ -12,6 +12,9 @@
   white-space: pre;
 }
 
+.post .metadata span {
+  cursor: pointer;
+}
 .post .metadata {
   color: rgb(90, 90, 90);
   display: "flex";

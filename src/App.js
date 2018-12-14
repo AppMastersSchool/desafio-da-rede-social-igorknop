@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Timeline from './components/timeline';
 import PostDetails from './components/post-details';
+import Profile from './components/profile';
 
 class App extends Component { 
 
@@ -29,12 +30,12 @@ class App extends Component {
           <BrowserRouter>
             <Switch>
               <Route path='/post/:time' component={PostDetails} />
+              <Route path='/profile/:username' component={Profile} />
               <Route path='/sobre' component={this.aboutPage} />
               <Route exact path='/' component={Timeline}/>
               <Route path='*' component={this.showNotFound} />
             </Switch>
           </BrowserRouter>
-          <p>Não pode ter nada aqui</p>
         </div>
       )
     }

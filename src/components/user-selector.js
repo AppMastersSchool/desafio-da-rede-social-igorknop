@@ -16,8 +16,8 @@ export default class UserSelector extends Component {
         }}
       >
         {this.props.users.map((user, k) => (
-          <option key={user} value={k}>
-            {user}
+          <option key={user.username} value={k}>
+            {user.username}
           </option>
         ))}
       </select>

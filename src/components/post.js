@@ -11,8 +11,6 @@ class Post extends Component {
   }
   doLike() {
     this.setState({ likes: this.state.likes + 1 }, () => {
-      console.log("after");
-      console.log("doLike state", this.state);
       this.saveLikesInStorage();
     });
   }
@@ -34,10 +32,9 @@ class Post extends Component {
       <div className={"post"}>
         <div className={"message"}>{post.content}</div>
         <div className={"metadata"}>
-          <span>{post.author}</span> at{" "}
+          <span onClick={()=>this.props.onProfileNavigate()}>{post.author}</span> at{" "}
           <span
             onClick={() => this.props.onNavigate()}
-            style={{ cursor: "pointer" }}
           >
             {new Date(post.time).toLocaleString()}
           </span>

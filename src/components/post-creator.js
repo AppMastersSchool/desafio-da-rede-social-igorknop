@@ -12,7 +12,7 @@ class PostCreator extends Component {
     createPost(){
         const newPost = {
             content: this.state.text,
-            author: this.props.getUser(),
+            author: this.props.getUser().username,
             time: new Date().getTime(),
             initialLikes: 0
         }
