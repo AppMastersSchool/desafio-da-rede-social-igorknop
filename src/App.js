@@ -34,7 +34,7 @@ class App extends Component {
               <Route path='*' component={this.showNotFound} />
             </Switch>
           </BrowserRouter>
-          <p>Nao pode ter nada aqui</p>
+          <p>Não pode ter nada aqui</p>
         </div>
       )
     }
