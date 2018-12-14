@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 
 class PostCreator extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            text: ''
+            text: '',
+            user: this.props.getUser()
         }
     }
     
     createPost(){
         const newPost = {
             content: this.state.text,
-            author: 'Baraky',
+            author: this.props.getUser(),
             time: new Date().getTime(),
             initialLikes: 0
         }
