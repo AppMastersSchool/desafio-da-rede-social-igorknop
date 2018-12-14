@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import Timeline from './components/timeline';
-import PostDetails from './components/postDetails';
+import PostDetails from './components/post-details';
 
 class App extends Component { 
 

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Post from './post';
-import PostCreator from './postCreator';
+import PostCreator from './post-creator';
 
 class Timeline extends Component { 
     constructor(){
