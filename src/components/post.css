@@ -9,6 +9,7 @@
 
 .post .message {
   padding: 0 0.2em 1em 0.2em;
+  white-space: pre;
 }
 
 .post .metadata {
