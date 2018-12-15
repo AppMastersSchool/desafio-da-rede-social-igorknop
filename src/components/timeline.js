@@ -47,6 +47,12 @@ export default class Timeline extends Component {
       this.readFromAPI();
     });
   }
+  updatePostAPI(post) {
+    axios.put("http://localhost:3001/posts/"+post.id, post).then(() => {
+      this.readFromAPI();
+    });
+  }
+
   readFromStorage() {
     const xoxialDB = localStorage.getItem(DATABASE_NAME);
     if (xoxialDB) {
@@ -84,7 +90,7 @@ export default class Timeline extends Component {
   }
 
   onNavigate(post) {
-    this.props.history.push("/post/" + post.time);
+    this.props.history.push("/post/" + post.id);
   }
   onProfileNavigate(post) {
     this.props.history.push("/profile/" + post.author);
@@ -110,8 +116,9 @@ export default class Timeline extends Component {
           return (
             <Post
               onNavigate={() => this.onNavigate(post)}
+              onUpdate={this.updatePostAPI.bind(this)}
               onProfileNavigate={() => this.onProfileNavigate(post)}
-              key={post.time}
+              key={post.id}
               post={post}
             />
           );

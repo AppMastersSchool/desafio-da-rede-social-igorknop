@@ -2,17 +2,24 @@
   "posts": [
     {
       "id": "7b5f1a33-598f-4718-9a99-2bbb954dc886",
-      "content": "Hello World!",
       "author": "igorknop",
-      "time": 1544848824479,
-      "initialLikes": 0
+      "likes": 0,
+      "content": "Hello World!",
+      "time": 1544850837661
     },
     {
       "id": "69283b14-d783-423f-a530-fac7a0af7a17",
-      "content": "Hello Again!",
       "author": "jfbaraky",
-      "time": 1544849039413,
-      "initialLikes": 0
+      "likes": 3,
+      "content": "Hello Again!",
+      "time": 1544850839661
+    },
+    {
+      "id": "c80362dd-2898-47e9-ada5-ae51d907348e",
+      "content": "Blas",
+      "author": "jfbaraky",
+      "time": 1544850836661,
+      "likes": 0
     }
   ],
   "users": [

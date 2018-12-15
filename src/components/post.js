@@ -16,9 +16,11 @@ class Post extends Component {
     super(props);
     this.state = {
       post: {
+        id: props.post.id,
         author: props.post.author,
-        likes: props.post.initialLikes,
-        content: props.post.content
+        likes: props.post.likes,
+        content: props.post.content,
+        time: props.post.time,
       }
     };
     this.doLike = this.doLike.bind(this);
@@ -32,11 +34,16 @@ class Post extends Component {
     });
   }
 
+  saveLikesInAPI(){
+
+  }
+
   saveLikesInStorage() {
     const xoxialDB = JSON.parse(localStorage.getItem(DATABASE_NAME));
     const updatePosts = xoxialDB.posts.map(savedPost => {
-      if (savedPost.time * 1 === this.props.post.time * 1) {
-        savedPost.initialLikes = this.state.likes;
+      if (savedPost.id === this.props.post.id) {
+        //savedPost.initialLikes = this.state.likes;
+        savedPost.likes = this.state.likes;
       }
       return savedPost;
     });
@@ -71,7 +78,12 @@ class Post extends Component {
               {new Date(post.time).toLocaleString()}
             </Typography>
           </Grid>
-          <IconButton aria-label="Like" onClick={this.doLike}>
+          <IconButton aria-label="Like" onClick={(event)=>{
+            const newState = Object.assign({}, this.state);
+            newState.post.likes++;
+            this.setState(newState);
+            this.props.onUpdate(newState.post);
+          }}>
             {this.state.post.likes} <LikeIcon fontSize="small" />
           </IconButton>
         </CardActions>

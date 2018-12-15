@@ -29,7 +29,7 @@ class App extends Component {
         <div>
           <BrowserRouter>
             <Switch>
-              <Route path='/post/:time' component={PostDetails} />
+              <Route path='/post/:id' component={PostDetails} />
               <Route path='/profile/:username' component={Profile} />
               <Route path='/sobre' component={this.aboutPage} />
               <Route exact path='/' component={Timeline}/>
