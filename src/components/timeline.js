@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Post from "./post";
 import PostCreator from "./post-creator";
 import UserSelector from "./user-selector";
-//import axios from 'axios';
-
+import axios from "axios";
 const DATABASE_NAME = "xoxialDB";
 const DATABASE_DEFAULT = {
   posts: [],
@@ -18,7 +17,7 @@ const DATABASE_DEFAULT = {
       img: "https://avatars2.githubusercontent.com/u/2242549?s=400&v=4"
     }
   ],
-  currentUser: 0
+  currentUser: [0]
 };
 
 export default class Timeline extends Component {
@@ -28,8 +27,8 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
-    this.readFromStorage();
-    //this.readFromAPI();
+    //this.readFromStorage();
+    this.readFromAPI();
   }
 
   changeUser(newCurrent) {
@@ -43,7 +42,11 @@ export default class Timeline extends Component {
     this.setState(newState);
     this.saveInStorage();
   }
-
+  insertPostAPI(post) {
+    axios.post("http://localhost:3001/posts", post).then(()=>{
+      this.readFromAPI();
+    });
+  }
   readFromStorage() {
     const xoxialDB = localStorage.getItem(DATABASE_NAME);
     if (xoxialDB) {
@@ -54,9 +57,25 @@ export default class Timeline extends Component {
   }
 
   readFromAPI() {
-    //const xoxialDB = axios.get("http://localhost:3001/posts").then(response =>{
-    //  console.log(response);
-    //});
+    Promise.all([
+      axios.get("http://localhost:3001/posts"),
+      axios.get("http://localhost:3001/users")
+    ])
+      .then(responses => {
+        const newState = Object.assign({}, this.state, {
+          posts: responses[0].data.sort((a,b)=>b.time-a.time),
+          users: responses[1].data
+        });
+        console.log(newState);
+
+        this.setState(newState, function(resp) {
+          console.log("API", resp);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState(DATABASE_DEFAULT);
+      });
   }
 
   saveInStorage() {
@@ -77,12 +96,12 @@ export default class Timeline extends Component {
         <h1>XoXial</h1>
         <UserSelector
           users={this.state.users}
-          current={this.state.currentUser}
+          current={this.state.currentUser[0]}
           onChangeUser={this.changeUser.bind(this)}
         />
         <PostCreator
-          onCreate={this.insertPost.bind(this)}
-          getUser={() => this.state.users[this.state.currentUser]}
+          onCreate={this.insertPostAPI.bind(this)}
+          getUser={() => this.state.users[this.state.currentUser[0]]}
         />
         <button onClick={() => this.props.history.push("/sobre")}>
           Ver sobre

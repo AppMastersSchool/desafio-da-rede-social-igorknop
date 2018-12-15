@@ -1,28 +1,37 @@
 {
   "posts": [
     {
-      "id": 1,
-      "content": "dasdasda\n",
+      "id": "7b5f1a33-598f-4718-9a99-2bbb954dc886",
+      "content": "Hello World!",
+      "author": "igorknop",
+      "time": 1544848824479,
+      "initialLikes": 0
+    },
+    {
+      "id": "69283b14-d783-423f-a530-fac7a0af7a17",
+      "content": "Hello Again!",
       "author": "jfbaraky",
-      "time": 1544812021398,
+      "time": 1544849039413,
       "initialLikes": 0
     }
   ],
   "users": [
     {
-      "id": 1,
+      "id": "b45f1a33-598f-4718-9a99-2bbb954dc452",
       "username": "jfbaraky",
       "img": "https://avatars1.githubusercontent.com/u/20716607?s=460&v=4"
     },
     {
-      "id": 2,
+      "id": "155f1a33-598f-4718-9a99-2bbb954dc321",
       "username": "igorknop"
     },
     {
-      "id": 3,
+      "id": "7fff1a33-598f-4718-9a99-2bbb954dc123",
       "username": "tiagogouvea",
       "img": "https://avatars2.githubusercontent.com/u/2242549?s=400&v=4"
     }
   ],
-  "currentUser": [0]
+  "currentUser": [
+    0
+  ]
 }
