@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Post from "./post";
 import PostCreator from "./post-creator";
 import UserSelector from "./user-selector";
+//import axios from 'axios';
 
 const DATABASE_NAME = "xoxialDB";
 const DATABASE_DEFAULT = {
@@ -27,8 +28,8 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
-    console.log("Loading previous data...");
     this.readFromStorage();
+    //this.readFromAPI();
   }
 
   changeUser(newCurrent) {
@@ -50,6 +51,12 @@ export default class Timeline extends Component {
     } else {
       this.setState(DATABASE_DEFAULT);
     }
+  }
+
+  readFromAPI() {
+    //const xoxialDB = axios.get("http://localhost:3001/posts").then(response =>{
+    //  console.log(response);
+    //});
   }
 
   saveInStorage() {

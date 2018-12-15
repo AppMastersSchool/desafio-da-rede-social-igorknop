@@ -1,0 +1,28 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "content": "dasdasda\n",
+      "author": "jfbaraky",
+      "time": 1544812021398,
+      "initialLikes": 0
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "jfbaraky",
+      "img": "https://avatars1.githubusercontent.com/u/20716607?s=460&v=4"
+    },
+    {
+      "id": 2,
+      "username": "igorknop"
+    },
+    {
+      "id": 3,
+      "username": "tiagogouvea",
+      "img": "https://avatars2.githubusercontent.com/u/2242549?s=400&v=4"
+    }
+  ],
+  "currentUser": [0]
+}

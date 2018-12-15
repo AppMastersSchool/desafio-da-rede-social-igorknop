@@ -14,7 +14,6 @@ export default class Profile extends Component {
         return user.username === this.props.match.params.username;
       })
       .pop();
-    console.log(userselected);
 
     this.setState({ username: userselected.username, img: userselected.img });
   }

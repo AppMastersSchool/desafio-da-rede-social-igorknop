@@ -1,46 +1,81 @@
 import React, { Component } from "react";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import LikeIcon from "@material-ui/icons/ThumbUp";
+import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
+
 import "./post.css";
+import {DATABASE_NAME} from "./timeline";
 
 class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      likes: props.post.initialLikes
+      post: {
+        author: props.post.author,
+        likes: props.post.initialLikes,
+        content: props.post.content
+      }
     };
     this.doLike = this.doLike.bind(this);
   }
+
   doLike() {
-    this.setState({ likes: this.state.likes + 1 }, () => {
+    let newState = Object.assign({}, this.state);
+    newState.post.likes++;
+    this.setState(newState, () => {
       this.saveLikesInStorage();
     });
   }
+
   saveLikesInStorage() {
-    const posts = JSON.parse(localStorage.getItem("savedPosts"));
-    const updatePosts = posts.map(savedPost => {
-      if (savedPost.time === this.props.post.time) {
+    const xoxialDB = JSON.parse(localStorage.getItem(DATABASE_NAME));
+    const updatePosts = xoxialDB.posts.map(savedPost => {
+      if (savedPost.time * 1 === this.props.post.time * 1) {
         savedPost.initialLikes = this.state.likes;
       }
       return savedPost;
     });
-    localStorage.setItem("savedPosts", JSON.stringify(updatePosts));
-    console.table(updatePosts);
+    Object.assign({}, xoxialDB, { posts: updatePosts });
+    localStorage.setItem(DATABASE_NAME, JSON.stringify(xoxialDB));
   }
   render() {
     const post = this.props.post;
-    console.log(this.props);
+
     return (
-      <div className={"post"}>
-        <div className={"message"}>{post.content}</div>
-        <div className={"metadata"}>
-          <span onClick={()=>this.props.onProfileNavigate()}>{post.author}</span> at{" "}
-          <span
-            onClick={() => this.props.onNavigate()}
-          >
-            {new Date(post.time).toLocaleString()}
-          </span>
-          <button onClick={this.doLike}>{this.state.likes} Likes</button>
-        </div>
-      </div>
+      <Card className={"card"}>
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            {post.content}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Grid container alignItems="center" spacing={16}>
+            <Avatar>{post.author.substr(0, 2).toUpperCase()}</Avatar>
+            <Typography
+              onClick={() => this.props.onProfileNavigate()}
+              color="textSecondary"
+              gutterBottom
+            >
+              {post.author}
+            </Typography>
+            <Typography
+              onClick={() => this.props.onNavigate()}
+              color="textSecondary"
+              gutterBottom
+            >
+              {new Date(post.time).toLocaleString()}
+            </Typography>
+          </Grid>
+          <IconButton aria-label="Like" onClick={this.doLike}>
+            {this.state.post.likes} <LikeIcon fontSize="small" />
+          </IconButton>
+        </CardActions>
+      </Card>
     );
   }
 }
